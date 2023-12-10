@@ -1,0 +1,213 @@
+diff --git a/ios/Flutter/Debug.xcconfig b/ios/Flutter/Debug.xcconfig
+index 0b2d479..dfd2626 100644
+--- a/ios/Flutter/Debug.xcconfig
++++ b/ios/Flutter/Debug.xcconfig
+@@ -1 +1,2 @@
++#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+ #include "Generated.xcconfig"
+diff --git a/ios/Flutter/Release.xcconfig b/ios/Flutter/Release.xcconfig
+index 0b2d479..a97381a 100644
+--- a/ios/Flutter/Release.xcconfig
++++ b/ios/Flutter/Release.xcconfig
+@@ -1 +1,2 @@
++#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
+ #include "Generated.xcconfig"
+diff --git a/ios/Podfile b/ios/Podfile
+new file mode 100644
+index 0000000..fdcc671
+--- /dev/null
++++ b/ios/Podfile
+@@ -0,0 +1,44 @@
++# Uncomment this line to define a global platform for your project
++# platform :ios, '11.0'
++
++# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
++ENV['COCOAPODS_DISABLE_STATS'] = 'true'
++
++project 'Runner', {
++  'Debug' => :debug,
++  'Profile' => :release,
++  'Release' => :release,
++}
++
++def flutter_root
++  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
++  unless File.exist?(generated_xcode_build_settings_path)
++    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
++  end
++
++  File.foreach(generated_xcode_build_settings_path) do |line|
++    matches = line.match(/FLUTTER_ROOT\=(.*)/)
++    return matches[1].strip if matches
++  end
++  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
++end
++
++require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
++
++flutter_ios_podfile_setup
++
++target 'Runner' do
++  use_frameworks!
++  use_modular_headers!
++
++  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
++  target 'RunnerTests' do
++    inherit! :search_paths
++  end
++end
++
++post_install do |installer|
++  installer.pods_project.targets.each do |target|
++    flutter_additional_ios_build_settings(target)
++  end
++end
+diff --git a/macos/Flutter/Flutter-Debug.xcconfig b/macos/Flutter/Flutter-Debug.xcconfig
+index f022c34..df4c964 100644
+--- a/macos/Flutter/Flutter-Debug.xcconfig
++++ b/macos/Flutter/Flutter-Debug.xcconfig
+@@ -1 +1,2 @@
++#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+ #include "ephemeral/Flutter-Generated.xcconfig"
+diff --git a/macos/Flutter/Flutter-Release.xcconfig b/macos/Flutter/Flutter-Release.xcconfig
+index f022c34..e79501e 100644
+--- a/macos/Flutter/Flutter-Release.xcconfig
++++ b/macos/Flutter/Flutter-Release.xcconfig
+@@ -1 +1,2 @@
++#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
+ #include "ephemeral/Flutter-Generated.xcconfig"
+diff --git a/macos/Podfile b/macos/Podfile
+new file mode 100644
+index 0000000..c795730
+--- /dev/null
++++ b/macos/Podfile
+@@ -0,0 +1,43 @@
++platform :osx, '10.14'
++
++# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
++ENV['COCOAPODS_DISABLE_STATS'] = 'true'
++
++project 'Runner', {
++  'Debug' => :debug,
++  'Profile' => :release,
++  'Release' => :release,
++}
++
++def flutter_root
++  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'ephemeral', 'Flutter-Generated.xcconfig'), __FILE__)
++  unless File.exist?(generated_xcode_build_settings_path)
++    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure \"flutter pub get\" is executed first"
++  end
++
++  File.foreach(generated_xcode_build_settings_path) do |line|
++    matches = line.match(/FLUTTER_ROOT\=(.*)/)
++    return matches[1].strip if matches
++  end
++  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Flutter-Generated.xcconfig, then run \"flutter pub get\""
++end
++
++require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
++
++flutter_macos_podfile_setup
++
++target 'Runner' do
++  use_frameworks!
++  use_modular_headers!
++
++  flutter_install_all_macos_pods File.dirname(File.realpath(__FILE__))
++  target 'RunnerTests' do
++    inherit! :search_paths
++  end
++end
++
++post_install do |installer|
++  installer.pods_project.targets.each do |target|
++    flutter_additional_macos_build_settings(target)
++  end
++end
+diff --git a/pubspec.lock b/pubspec.lock
+index c18fd1a..feab12f 100644
+--- a/pubspec.lock
++++ b/pubspec.lock
+@@ -45,10 +45,10 @@ packages:
+     dependency: transitive
+     description:
+       name: collection
+-      sha256: f092b211a4319e98e5ff58223576de6c2803db36221657b46c82574721240687
++      sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.17.2"
++    version: "1.18.0"
+   crypto:
+     dependency: transitive
+     description:
+@@ -159,10 +159,10 @@ packages:
+     dependency: transitive
+     description:
+       name: meta
+-      sha256: "3c74dbf8763d36539f114c799d8a2d87343b5067e9d796ca22b5eb8437090ee3"
++      sha256: a6e590c838b18133bb482a2745ad77c5bb7715fb0451209e1a7567d416678b8e
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.9.1"
++    version: "1.10.0"
+   path:
+     dependency: transitive
+     description:
+@@ -252,18 +252,18 @@ packages:
+     dependency: transitive
+     description:
+       name: stack_trace
+-      sha256: c3c7d8edb15bee7f0f74debd4b9c5f3c2ea86766fe4178eb2a18eb30a0bdaed5
++      sha256: "73713990125a6d93122541237550ee3352a2d84baad52d375a4cad2eb9b7ce0b"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.11.0"
++    version: "1.11.1"
+   stream_channel:
+     dependency: transitive
+     description:
+       name: stream_channel
+-      sha256: "83615bee9045c1d322bbbd1ba209b7a749c2cbcdcb3fdd1df8eb488b3279c1c8"
++      sha256: ba2aa5d8cc609d96bbb2899c28934f9e1af5cddbd60a827822ea467161eb54e7
+       url: "https://pub.dev"
+     source: hosted
+-    version: "2.1.1"
++    version: "2.1.2"
+   string_scanner:
+     dependency: transitive
+     description:
+@@ -284,10 +284,10 @@ packages:
+     dependency: transitive
+     description:
+       name: test_api
+-      sha256: "75760ffd7786fffdfb9597c35c5b27eaeec82be8edfb6d71d32651128ed7aab8"
++      sha256: "5c2f730018264d276c20e4f1503fd1308dfbbae39ec8ee63c5236311ac06954b"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "0.6.0"
++    version: "0.6.1"
+   typed_data:
+     dependency: transitive
+     description:
+@@ -308,10 +308,10 @@ packages:
+     dependency: transitive
+     description:
+       name: web
+-      sha256: dc8ccd225a2005c1be616fe02951e2e342092edf968cf0844220383757ef8f10
++      sha256: afe077240a270dcfd2aafe77602b4113645af95d0ad31128cc02bce5ac5d5152
+       url: "https://pub.dev"
+     source: hosted
+-    version: "0.1.4-beta"
++    version: "0.3.0"
+   win32:
+     dependency: transitive
+     description:
+@@ -329,5 +329,5 @@ packages:
+     source: hosted
+     version: "1.0.3"
+ sdks:
+-  dart: ">=3.1.0 <4.0.0"
++  dart: ">=3.2.0-194.0.dev <4.0.0"
+   flutter: ">=3.7.0"
