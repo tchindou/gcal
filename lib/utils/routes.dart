@@ -9,6 +9,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => WalkthroughScreen());
       case '/landing': // J'ai changé la valeur pour éviter la duplication
         return MaterialPageRoute(builder: (_) => Landing());
+      case '/login':
+        return MaterialPageRoute(builder: (_) => Login());
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
