@@ -32,7 +32,7 @@ class _EmailInpState extends State<EmailInp> {
       decoration: InputDecoration(
         labelText: 'Email',
         errorText: null,
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         prefixIcon: const Icon(Icons.mail_outlined),
         suffixIcon: _validationError != null
             ? IconButton(

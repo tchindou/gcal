@@ -46,7 +46,7 @@ class _PwdWidgetState extends State<PwdWidget> {
         labelText: 'Mot de passe',
         errorText: null,
         prefixIcon: const Icon(Icons.key_outlined),
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         suffixIcon: _validationError != null
             ? IconButton(
                 icon: const Icon(
@@ -65,7 +65,7 @@ class _PwdWidgetState extends State<PwdWidget> {
                       ),
                       duration: const Duration(seconds: 5),
                       behavior: SnackBarBehavior.floating,
-                      margin: const EdgeInsets.all(3),
+                      margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
                       backgroundColor: const Color(0xFFF2F2F2),
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(

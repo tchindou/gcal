@@ -6,11 +6,15 @@ class Routes {
     // Vous pouvez définir vos propres routes et logique ici
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => WalkthroughScreen());
+        return MaterialPageRoute(builder: (_) => const WalkthroughScreen());
       case '/landing': // J'ai changé la valeur pour éviter la duplication
-        return MaterialPageRoute(builder: (_) => Landing());
+        return MaterialPageRoute(builder: (_) => const Landing());
       case '/login':
-        return MaterialPageRoute(builder: (_) => Login());
+        return MaterialPageRoute(builder: (_) => const Login());
+      case '/signup':
+        return MaterialPageRoute(builder: (_) => const Signup());
+      case '/home':
+        return MaterialPageRoute(builder: (_) => const Home());
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

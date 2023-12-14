@@ -20,71 +20,72 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InpOther(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      // Wrap the entire widget tree with Material
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                10, MediaQuery.of(context).size.height * 0.25, 10, 10),
+            child: Form(
+              key: formKey,
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Divider(
-                    height:
-                        30, // Ajustez la hauteur de la ligne selon vos besoins
-                    thickness:
-                        2, // Ajustez l'épaisseur de la ligne selon vos besoins
-                    color: Colors.grey,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const InpOther(),
+                  const Gap(20),
+                  const Text('- or -', style: TextStyle(fontSize: 20)),
+                  const Gap(50),
+                  Container(
+                    height: 60,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child:
+                        InpField(type: "nom", textController: textController),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: Text(
-                      ' or ',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
+                  const Gap(20),
+                  Container(
+                    height: 60,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: InpField(
+                        type: "mdp", passwordController: passwordController),
+                  ),
+                  const Gap(30),
+                  InkWell(
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        // Form is valid, proceed with your logic
+                        // e.g., calling the sign-up function
+                      }
+                      Navigator.pushNamed(context, "/home");
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: green),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Sign up',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20.0,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  Divider(
-                    height:
-                        30, // Ajustez la hauteur de la ligne selon vos besoins
-                    thickness:
-                        2, // Ajustez l'épaisseur de la ligne selon vos besoins
-                    color: Colors.grey,
                   ),
                 ],
               ),
-              Gap(10),
-              InpField(type: "text", textController: textController),
-              InpField(type: "pwd", passwordController: passwordController),
-              Gap(25),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: green),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Sign up',
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

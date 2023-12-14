@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gcal/utils/colors.dart';
-import 'package:gcal/utils/routes.dart';
-import 'package:gcal/view/screens/landing-screen.dart';
 
 // ignore: must_be_immutable
 class WalkBottom extends StatefulWidget {

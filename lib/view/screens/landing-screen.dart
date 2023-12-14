@@ -78,11 +78,13 @@ class Landing extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/signup');
+                      },
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.5,
                         height: 50,

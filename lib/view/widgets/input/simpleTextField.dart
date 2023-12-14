@@ -71,7 +71,7 @@ class _TextInpState extends State<TextInp> {
                     },
                   )
                 : null, // Si le champ de texte n'a pas d'erreur, ne montrez pas l'icône
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
       focusNode: _codeFocusNode,
       onFieldSubmitted: (_) {
