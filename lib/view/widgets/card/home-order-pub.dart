@@ -13,7 +13,7 @@ class _HomeOrderPubState extends State<HomeOrderPub> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 180,
+      height: 150,
       width: MediaQuery.of(context).size.width * 0.96,
       margin: EdgeInsets.only(
         left: MediaQuery.of(context).size.width * 0.01,
@@ -45,7 +45,7 @@ class _HomeOrderPubState extends State<HomeOrderPub> {
             right: 0,
             child: Container(
               width: 100,
-              height: 180,
+              height: 150,
               decoration: const BoxDecoration(
                 color: Color(0x47000000),
                 borderRadius: BorderRadius.only(
@@ -63,7 +63,7 @@ class _HomeOrderPubState extends State<HomeOrderPub> {
                   child: Text(
                     "Choisissez votre plat frais & sain",
                     style: GoogleFonts.poppins(
-                        fontSize: 20, fontWeight: FontWeight.w500),
+                        fontSize: 16, fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
                   ),
                 ),

@@ -8,25 +8,28 @@ class HeaderDesc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 5,
-          height: 26,
-          decoration: BoxDecoration(
-            color: green,
-            borderRadius: BorderRadius.circular(10.0),
+    return Container(
+      margin: const EdgeInsets.only(top: 20, bottom: 20),
+      child: Row(
+        children: [
+          Container(
+            width: 5,
+            height: 20,
+            decoration: BoxDecoration(
+              color: green,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
           ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 5),
-          child: Text(
-            title,
-            style:
-                GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w400),
-          ),
-        )
-      ],
+          Container(
+            margin: const EdgeInsets.only(left: 5),
+            child: Text(
+              title,
+              style: GoogleFonts.poppins(
+                  fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

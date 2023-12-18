@@ -11,6 +11,7 @@ class InpField extends StatefulWidget {
   final TextEditingController? passwordController;
   final TextEditingController? phoneController;
   final TextEditingController? textController;
+  final String? text;
   final String? selectedCountry;
   final ValueChanged<String>? onChanged;
 
@@ -20,6 +21,7 @@ class InpField extends StatefulWidget {
     this.passwordController,
     this.phoneController,
     this.textController,
+    this.text,
     this.selectedCountry,
     this.onChanged,
     Key? key,
@@ -63,6 +65,16 @@ class _InpFieldState extends State<InpField> {
       case 'nom':
         widgetRetour = widget.textController != null
             ? TextInp(nom: 'Nom', textController: widget.textController!)
+            : Container();
+        break;
+
+      case 'text':
+        widgetRetour = widget.textController != null
+            ? TextInp(
+                nom: 'Nom',
+                text: widget.text,
+                onChanged: widget.onChanged,
+                textController: widget.textController!)
             : Container();
         break;
 

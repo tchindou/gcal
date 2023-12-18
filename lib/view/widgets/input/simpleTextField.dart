@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 
 class TextInp extends StatefulWidget {
   final String nom;
+  final String? text;
   final TextEditingController textController;
-  const TextInp({required this.nom, required this.textController, super.key});
+  final ValueChanged<String>? onChanged;
+  const TextInp(
+      {required this.nom,
+      required this.textController,
+      this.text,
+      this.onChanged,
+      super.key});
 
   @override
   State<TextInp> createState() => _TextInpState();
@@ -27,13 +34,20 @@ class _TextInpState extends State<TextInp> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.textController, // Utilisez le contrôleur pour l'email
+      onChanged: widget.onChanged,
       obscureText: false,
       decoration: InputDecoration(
-        labelText: widget.nom, // Personnalisez le libellé selon vos besoins
+        labelText: (widget.text == null)
+            ? widget.nom
+            : widget.text, // Personnalisez le libellé selon vos besoins
         errorText: null,
-        prefixIcon: const Icon(Icons.person_2_outlined),
-        suffixIcon:
-            _hasError // Ajoutez un suffixIcon conditionnel pour afficher l'icône d'erreur
+        prefixIcon: (widget.text == null)
+            ? const Icon(Icons.person_2_outlined)
+            : (widget.text == "Recherche")
+                ? const Icon(Icons.search)
+                : null,
+        suffixIcon: (widget.text == null)
+            ? (_hasError // Ajoutez un suffixIcon conditionnel pour afficher l'icône d'erreur
                 ? IconButton(
                     icon: const Icon(
                       Icons.error_outline,
@@ -70,7 +84,8 @@ class _TextInpState extends State<TextInp> {
                       );
                     },
                   )
-                : null, // Si le champ de texte n'a pas d'erreur, ne montrez pas l'icône
+                : null)
+            : null, // Si le champ de texte n'a pas d'erreur, ne montrez pas l'icône
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
       focusNode: _codeFocusNode,
