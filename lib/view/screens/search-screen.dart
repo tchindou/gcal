@@ -194,7 +194,9 @@ class _SearchState extends State<Search> {
                   badgeColor: red,
                 ),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/profile");
+                  },
                   icon: const Icon(
                     Icons.shopping_cart_outlined,
                   ),
@@ -211,7 +213,7 @@ class _SearchState extends State<Search> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
       height: 60,
-      padding: EdgeInsets.only(top: 5, bottom: 5),
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
       margin: EdgeInsets.only(
           left: MediaQuery.of(context).size.width * 0.05,
           right: MediaQuery.of(context).size.width * 0.05),
@@ -227,7 +229,7 @@ class _SearchState extends State<Search> {
                 },
                 textController: searchController),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           InkWell(
@@ -276,7 +278,7 @@ class _SearchState extends State<Search> {
   Future<void> bottomSheet() {
     return showModalBottomSheet<void>(
       context: context,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(20.0),
         ),
@@ -285,7 +287,7 @@ class _SearchState extends State<Search> {
         return Container(
           height: 300,
           width: MediaQuery.of(context).size.width * 0.9,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10), topRight: Radius.circular(10)),
           ),
@@ -295,7 +297,7 @@ class _SearchState extends State<Search> {
             children: <Widget>[
               Center(
                 child: Container(
-                  margin: EdgeInsets.only(top: 10, bottom: 10),
+                  margin: const EdgeInsets.only(top: 10, bottom: 10),
                   width: 60,
                   height: 8,
                   decoration: BoxDecoration(
@@ -304,7 +306,7 @@ class _SearchState extends State<Search> {
                   ),
                 ),
               ),
-              HeaderDesc(title: "Filtre"),
+              const HeaderDesc(title: "Filtre"),
               Wrap(
                 alignment: WrapAlignment.start,
                 children: items.asMap().entries.map((entry) {
@@ -350,8 +352,8 @@ class _SearchState extends State<Search> {
                       const HeaderDesc(title: "Categories"),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        physics: ClampingScrollPhysics()
-                            .applyTo(BouncingScrollPhysics()),
+                        physics: const ClampingScrollPhysics()
+                            .applyTo(const BouncingScrollPhysics()),
                         child: Row(
                           children: items.asMap().entries.map((entry) {
                             int index = entry.key;
@@ -373,8 +375,8 @@ class _SearchState extends State<Search> {
                       const HeaderDesc(title: "Vos favoris"),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        physics: ClampingScrollPhysics()
-                            .applyTo(BouncingScrollPhysics()),
+                        physics: const ClampingScrollPhysics()
+                            .applyTo(const BouncingScrollPhysics()),
                         child: Row(
                           children: [
                             for (var orderDesc

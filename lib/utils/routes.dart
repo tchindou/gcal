@@ -17,6 +17,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const Home());
       case '/search':
         return MaterialPageRoute(builder: (_) => const Search());
+      case '/profile':
+        return MaterialPageRoute(builder: (_) => const Profile());
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
