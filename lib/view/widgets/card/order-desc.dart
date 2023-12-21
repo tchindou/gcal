@@ -3,16 +3,19 @@ import 'package:gcal/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:badges/badges.dart' as badges;
 
+import 'package:gcal/domain/export.domain.dart';
+
 class OrderDesc extends StatefulWidget {
-  final String categorie;
-  final String name;
-  const OrderDesc({super.key, required this.categorie, required this.name});
+  final Order order;
+  const OrderDesc({super.key, required this.order});
 
   @override
   State<OrderDesc> createState() => _OrderDescState();
 }
 
 class _OrderDescState extends State<OrderDesc> {
+  CartManip c = CartManip.instance;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,9 +34,9 @@ class _OrderDescState extends State<OrderDesc> {
                 width: 160,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  image: const DecorationImage(
+                  image: DecorationImage(
                     image: NetworkImage(
-                      "https://web-assets.bcg.com/3c/3d/794ddde7481695d246407d66e179/food-for-thought-the-untapped-climate-opportunity-in-alternative-proteins-rectangle.jpg",
+                      widget.order.image,
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -70,7 +73,7 @@ class _OrderDescState extends State<OrderDesc> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        ". ${widget.name} .",
+                        ". ${widget.order.name} .",
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -78,7 +81,15 @@ class _OrderDescState extends State<OrderDesc> {
                         textAlign: TextAlign.center,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () async {
+                          List<OrderCart> cart = await c.getCart();
+                          c.addCart(
+                            OrderCart(
+                                id: cart.length, qte: 1, order: widget.order),
+                          );
+                          print(
+                              "\n\n ${cart.length} - " + c.toString() + "\n\n");
+                        },
                         child: Container(
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(

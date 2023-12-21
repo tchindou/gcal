@@ -1,5 +1,6 @@
-import 'dart:ui';
+// ignore_for_file: constant_identifier_names
 
+import 'dart:ui';
 
 class Apps {
   static const Color PrimaryColor = Color(0xFFF1F1F1);

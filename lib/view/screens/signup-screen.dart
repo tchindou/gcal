@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gcal/view/widgets/input/inputField.dart';
@@ -12,7 +14,6 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
   // Page controller and current page index
   final _controller = PageController();
-  int _currentPage = 0;
 
   // State variables
   final List<String> _buttonPressed = ['unchecked', 'unchecked'];
@@ -135,9 +136,7 @@ class _SignupState extends State<Signup> {
         physics: const NeverScrollableScrollPhysics(),
         controller: _controller,
         onPageChanged: (page) {
-          setState(() {
-            _currentPage = page;
-          });
+          setState(() {});
         },
         children: [
           _buildPersonalInfoForm(),

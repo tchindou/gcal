@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:gcal/domain/entities/order.dart';
+import 'package:gcal/domain/entities/orderCart.dart';
+import 'package:gcal/domain/repository/cart-man.dart';
 import 'package:gcal/utils/colors.dart';
 import 'package:gcal/view/widgets/export-widget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +23,12 @@ class _HomeState extends State<Home> {
       7, (index) => false); // 7 est la longueur de votre liste d'items
   String selectedFilter = "Tous";
   String selectedCategory = "Tous";
+  CartManip c = CartManip.instance;
+
+  Future<int> ncart() async {
+    List<OrderCart> cart = await c.getCart();
+    return cart.length;
+  }
 
   final List<String> items = [
     "Tous",
@@ -73,14 +82,27 @@ class _HomeState extends State<Home> {
       String category = items[categoryIndex];
       String name = namesList[categoryIndex][nameIndex];
 
-      orderDescList.add(OrderDesc(categorie: category, name: name));
+      orderDescList.add(
+        OrderDesc(
+          order: Order(
+              id: i,
+              name: name,
+              category: category,
+              price: "10",
+              description: "description",
+              image:
+                  "https://web-assets.bcg.com/3c/3d/794ddde7481695d246407d66e179/food-for-thought-the-untapped-climate-opportunity-in-alternative-proteins-rectangle.jpg"),
+        ),
+      );
     }
 
-    return orderDescList
+    List<OrderDesc> list = orderDescList
         .where((orderDesc) =>
             selectedCategory == "Tous" ||
-            orderDesc.categorie == selectedCategory)
+            orderDesc.order.category == selectedCategory)
         .toList();
+
+    return list;
   }
 
   void updateItemsOrder(String clickedItem, String category) {
@@ -148,13 +170,21 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.only(right: 5, left: 10),
               child: badges.Badge(
                 showBadge: true,
-                position: badges.BadgePosition.topEnd(top: 1, end: 1),
+                position: badges.BadgePosition.topEnd(top: 1, end: -1),
                 badgeContent: const Text(
-                  "2",
+                  "3",
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
                 badgeStyle: badges.BadgeStyle(
+                  shape: badges.BadgeShape.square,
                   badgeColor: red,
+                  padding: EdgeInsets.all(5),
+                  borderRadius: BorderRadius.horizontal(
+                    left: Radius.circular(10),
+                    right: Radius.circular(10),
+                  ),
+                  borderSide: BorderSide(color: Colors.white, width: 2),
+                  elevation: 0,
                 ),
                 child: IconButton(
                   onPressed: () {
@@ -170,16 +200,37 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.only(right: 5, left: 10),
               child: badges.Badge(
                 showBadge: true,
-                position: badges.BadgePosition.topEnd(top: 1, end: 1),
-                badgeContent: const Text(
-                  "2",
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+                position: badges.BadgePosition.topEnd(top: 1, end: -1),
+                badgeContent: StreamBuilder<int>(
+                  stream: CartManip.instance.cartLengthStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Erreur : ${snapshot.error}');
+                    }
+                    if (!snapshot.hasData) {
+                      return CircularProgressIndicator();
+                    }
+                    return Text(
+                      "${snapshot.data}",
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    );
+                  },
                 ),
                 badgeStyle: badges.BadgeStyle(
+                  shape: badges.BadgeShape.square,
                   badgeColor: red,
+                  padding: EdgeInsets.all(5),
+                  borderRadius: BorderRadius.horizontal(
+                    left: Radius.circular(10),
+                    right: Radius.circular(10),
+                  ),
+                  borderSide: BorderSide(color: Colors.white, width: 2),
+                  elevation: 0,
                 ),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/cart");
+                  },
                   icon: const Icon(
                     Icons.shopping_cart_outlined,
                   ),

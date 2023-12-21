@@ -198,7 +198,7 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                       ),
-                      Gap(10),
+                      const Gap(10),
                       Text(
                         'TCHINDOU Alaise',
                         style: GoogleFonts.poppins(
@@ -213,7 +213,7 @@ class _ProfileState extends State<Profile> {
                           color: const Color(0xFFC1C1C1),
                         ),
                       ),
-                      Gap(10),
+                      const Gap(10),
                       for (var entry in data) _buildTiles(entry),
                     ],
                   ),

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:gcal/domain/entities/order.dart';
 import 'package:gcal/utils/colors.dart';
 import 'package:gcal/view/widgets/export-widget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,7 +76,18 @@ class _SearchState extends State<Search> {
       String category = items[categoryIndex];
       String name = namesList[categoryIndex][nameIndex];
 
-      orderDescList.add(OrderDesc(categorie: category, name: name));
+      orderDescList.add(
+        OrderDesc(
+          order: Order(
+              id: i,
+              name: name,
+              category: category,
+              price: "10",
+              description: "description",
+              image:
+                  "https://web-assets.bcg.com/3c/3d/794ddde7481695d246407d66e179/food-for-thought-the-untapped-climate-opportunity-in-alternative-proteins-rectangle.jpg"),
+        ),
+      );
     }
     List<OrderDesc> list = [];
 
@@ -83,9 +95,9 @@ class _SearchState extends State<Search> {
       list = orderDescList
           .where((orderDesc) =>
               (selectedCategory == "Tous" ||
-                  orderDesc.categorie == selectedCategory) &&
+                  orderDesc.order.category == selectedCategory) &&
               (searchController.text.isNotEmpty &&
-                  orderDesc.name
+                  orderDesc.order.name
                       .toLowerCase()
                       .contains(searchController.text.toLowerCase())))
           .toList();
@@ -93,7 +105,7 @@ class _SearchState extends State<Search> {
       list = orderDescList
           .where((orderDesc) =>
               selectedCategory == "Tous" ||
-              orderDesc.categorie == selectedCategory)
+              orderDesc.order.category == selectedCategory)
           .toList();
     }
     return list;
