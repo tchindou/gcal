@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gcal/view/widgets/input/simpleTextField.dart';
-import 'package:gcal/view/widgets/input/emailInpField.dart';
-import 'package:gcal/view/widgets/input/passwordField.dart';
+import 'package:gcal/view/widgets/input/text_field.dart';
+import 'package:gcal/view/widgets/input/email_field.dart';
+import 'package:gcal/view/widgets/input/password_field.dart';
 import 'package:gcal/view/widgets/input/telIndiceField.dart';
-import 'package:gcal/view/widgets/input/telInpField.dart';
+import 'package:gcal/view/widgets/input/tel_field.dart';
 
 class InpField extends StatefulWidget {
   final String type;

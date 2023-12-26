@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gcal/view/export-view.dart';
+import 'package:gcal/view/export_view.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -21,6 +21,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const Profile());
       case '/cart':
         return MaterialPageRoute(builder: (_) => const Cart());
+      case '/app':
+        return MaterialPageRoute(builder: (_) => const AppScreen());
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

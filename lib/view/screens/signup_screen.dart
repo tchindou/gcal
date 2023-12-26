@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:gcal/view/widgets/input/inputField.dart';
+import 'package:gcal/view/widgets/input/input_field.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);

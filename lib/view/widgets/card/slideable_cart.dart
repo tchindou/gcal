@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:gcal/domain/export.domain.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:gcal/domain/export_domain.dart';
 
 class SlideableCart extends StatefulWidget {
   final OrderCart cart;
@@ -12,14 +14,22 @@ class SlideableCart extends StatefulWidget {
 
 class _SlideableCartState extends State<SlideableCart> {
   bool isClosed = false;
-  int price =
-      1000; // Remplacez cette valeur par le nombre de places disponibles réel
+  double price = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
+    price = CartManip.instance.getPrice();
+    setState(
+        () {}); // Rafraîchit l'interface graphique après avoir récupéré les données.
+  }
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(
@@ -59,15 +69,15 @@ class _SlideableCartState extends State<SlideableCart> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 2),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         widget.cart.order.name,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Row(
+                      const Row(
                         children: [
                           Text('4.7'),
                           Icon(
@@ -83,41 +93,71 @@ class _SlideableCartState extends State<SlideableCart> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
                     'Le plat est constitué de tout ce qui ravira vos papilles gustative. Bon appetit !!',
-                    maxLines: price == 0 ? 1 : 2,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+                Container(
+                  height: 30,
+                  padding: const EdgeInsets.fromLTRB(8, 5, 8, 2),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        '$price fcfa',
-                        style: TextStyle(
+                        '${price} fcfa',
+                        style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.add_circle_outline),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            child: SizedBox(
+                              child: IconButton(
+                                onPressed: () {
+                                  if (widget.cart.qte > 1) {
+                                    CartManip.instance
+                                        .updateQte(widget.cart, type: "dec");
+                                    setState(() {
+                                      widget.cart.qte;
+                                    });
+                                  }
+                                },
+                                icon: const Icon(
+                                  Icons.remove_circle_outline,
+                                  size: 20,
+                                ),
+                              ),
                             ),
-                            Gap(5),
-                            Text("${widget.cart.qte}"),
-                            Gap(5),
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.remove_circle_outline),
+                          ),
+                          const Gap(5),
+                          Text(
+                            "${widget.cart.qte}",
+                            style: GoogleFonts.poppins(fontSize: 14),
+                          ),
+                          const Gap(5),
+                          InkWell(
+                            child: SizedBox(
+                              child: IconButton(
+                                onPressed: () {
+                                  CartManip.instance
+                                      .updateQte(widget.cart, type: "inc");
+                                  setState(() {
+                                    widget.cart.qte;
+                                  });
+                                },
+                                icon: const Icon(
+                                  Icons.add_circle_outline,
+                                  size: 20,
+                                ),
+                              ),
                             ),
-                          ],
-                        ),
-                      )
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gcal/utils/colors.dart';
-import 'package:gcal/view/widgets/header/header-title.dart';
+import 'package:gcal/view/widgets/header/header_title.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:badges/badges.dart' as badges;
 

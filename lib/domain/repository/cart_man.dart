@@ -1,8 +1,9 @@
-import 'package:gcal/domain/entities/orderCart.dart';
-import 'package:gcal/domain/usecase/order-cart-uc.dart';
+import 'package:gcal/domain/entities/order_cart.dart';
+import 'package:gcal/domain/usecase/order_cart-uc.dart';
 
 class CartManip implements CartUseCase {
   List<OrderCart> orderCartList = [];
+  double price = 0;
 
   CartManip._privateConstructor();
 
@@ -23,7 +24,7 @@ class CartManip implements CartUseCase {
   Stream<int> get cartLengthStream async* {
     while (true) {
       await Future.delayed(
-          Duration(seconds: 1)); // Attendre 1 seconde entre chaque appel
+          const Duration(seconds: 1)); // Attendre 1 seconde entre chaque appel
       yield await getCart().then((cart) => cart.length);
     }
   }
@@ -34,8 +35,8 @@ class CartManip implements CartUseCase {
   }
 
   @override
-  Future<void> removeCart(OrderCart orderCart) async {
-    orderCartList.remove(orderCart);
+  Future<void> removeCart(int index) async {
+    orderCartList.remove(orderCartList[index]);
   }
 
   @override
@@ -47,6 +48,18 @@ class CartManip implements CartUseCase {
     } else {
       orderCart.qte = orderCart.qte;
     }
+  }
+
+  @override
+  Future<void> clearCart() async {
+    orderCartList.clear();
+  }
+
+  double getPrice() {
+    orderCartList.forEach((element) {
+      price += double.parse(element.order.price) * element.qte;
+    });
+    return price;
   }
 
   @override

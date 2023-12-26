@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gcal/utils/colors.dart';
-import 'package:gcal/view/widgets/input/input-export.dart';
+import 'package:gcal/view/widgets/input/input_export.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -63,7 +63,8 @@ class _LoginState extends State<Login> {
                         // Form is valid, proceed with your logic
                         // e.g., calling the sign-up function
                       }
-                      Navigator.pushNamed(context, "/home");
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, "/app", (route) => false);
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.5,
@@ -74,7 +75,7 @@ class _LoginState extends State<Login> {
                       ),
                       child: const Center(
                         child: Text(
-                          'Sign up',
+                          'Login',
                           style: TextStyle(
                             color: Colors.green,
                             fontSize: 20.0,

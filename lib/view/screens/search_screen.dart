@@ -3,32 +3,26 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gcal/domain/entities/order.dart';
-import 'package:gcal/domain/entities/orderCart.dart';
-import 'package:gcal/domain/repository/cart-man.dart';
 import 'package:gcal/utils/colors.dart';
-import 'package:gcal/view/widgets/export-widget.dart';
+import 'package:gcal/view/widgets/export_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:badges/badges.dart' as badges;
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Search extends StatefulWidget {
+  const Search({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Search> createState() => _SearchState();
 }
 
-class _HomeState extends State<Home> {
+class _SearchState extends State<Search> {
   bool isClicked = false; // Ajoutez l'initialisation ici
   List<bool> filterStates = List.generate(
       7, (index) => false); // 7 est la longueur de votre liste d'items
   String selectedFilter = "Tous";
   String selectedCategory = "Tous";
-  CartManip c = CartManip.instance;
 
-  Future<int> ncart() async {
-    List<OrderCart> cart = await c.getCart();
-    return cart.length;
-  }
+  TextEditingController searchController = TextEditingController();
 
   final List<String> items = [
     "Tous",
@@ -88,20 +82,32 @@ class _HomeState extends State<Home> {
               id: i,
               name: name,
               category: category,
-              price: "10",
+              price: "1000",
               description: "description",
               image:
                   "https://web-assets.bcg.com/3c/3d/794ddde7481695d246407d66e179/food-for-thought-the-untapped-climate-opportunity-in-alternative-proteins-rectangle.jpg"),
         ),
       );
     }
+    List<OrderDesc> list = [];
 
-    List<OrderDesc> list = orderDescList
-        .where((orderDesc) =>
-            selectedCategory == "Tous" ||
-            orderDesc.order.category == selectedCategory)
-        .toList();
-
+    if (searchController.text.isNotEmpty) {
+      list = orderDescList
+          .where((orderDesc) =>
+              (selectedCategory == "Tous" ||
+                  orderDesc.order.category == selectedCategory) &&
+              (searchController.text.isNotEmpty &&
+                  orderDesc.order.name
+                      .toLowerCase()
+                      .contains(searchController.text.toLowerCase())))
+          .toList();
+    } else {
+      list = orderDescList
+          .where((orderDesc) =>
+              selectedCategory == "Tous" ||
+              orderDesc.order.category == selectedCategory)
+          .toList();
+    }
     return list;
   }
 
@@ -113,6 +119,12 @@ class _HomeState extends State<Home> {
         selectedFilter = clickedItem;
         selectedCategory = clickedItem;
       }
+    });
+  }
+
+  void updateSearch() {
+    setState(() {
+      getFilteredOrderDescList();
     });
   }
 
@@ -133,14 +145,15 @@ class _HomeState extends State<Home> {
               child: Container(
                 decoration: const BoxDecoration(
                   color: Color(0xFFF2F2F2),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        'https://img.icons8.com/?size=80&id=uBUm8aDTEKsV&format=png'),
-                    fit: BoxFit.cover,
-                  ),
                 ),
                 width: 40,
                 height: 40,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back),
+                ),
               ),
             ),
             const SizedBox(
@@ -151,16 +164,30 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'TCHINDOU Alaise',
+                  'Search',
                   style: GoogleFonts.poppins(
-                    fontSize: 16,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text(
-                  '@alaise_tchindou',
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    color: const Color(0xFFC1C1C1),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'for your',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: black,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' favorite food',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: green,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -170,66 +197,17 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.only(right: 5, left: 10),
               child: badges.Badge(
                 showBadge: true,
-                position: badges.BadgePosition.topEnd(top: 1, end: -1),
+                position: badges.BadgePosition.topEnd(top: 1, end: 1),
                 badgeContent: const Text(
-                  "3",
+                  "2",
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
                 badgeStyle: badges.BadgeStyle(
-                  shape: badges.BadgeShape.square,
                   badgeColor: red,
-                  padding: EdgeInsets.all(5),
-                  borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(10),
-                    right: Radius.circular(10),
-                  ),
-                  borderSide: BorderSide(color: Colors.white, width: 2),
-                  elevation: 0,
                 ),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/search");
-                  },
-                  icon: const Icon(
-                    Icons.notifications_outlined,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 5, left: 10),
-              child: badges.Badge(
-                showBadge: true,
-                position: badges.BadgePosition.topEnd(top: 1, end: -1),
-                badgeContent: StreamBuilder<int>(
-                  stream: CartManip.instance.cartLengthStream,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text('Erreur : ${snapshot.error}');
-                    }
-                    if (!snapshot.hasData) {
-                      return CircularProgressIndicator();
-                    }
-                    return Text(
-                      "${snapshot.data}",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    );
-                  },
-                ),
-                badgeStyle: badges.BadgeStyle(
-                  shape: badges.BadgeShape.square,
-                  badgeColor: red,
-                  padding: EdgeInsets.all(5),
-                  borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(10),
-                    right: Radius.circular(10),
-                  ),
-                  borderSide: BorderSide(color: Colors.white, width: 2),
-                  elevation: 0,
-                ),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/cart");
+                    Navigator.pushNamed(context, "/profile");
                   },
                   icon: const Icon(
                     Icons.shopping_cart_outlined,
@@ -243,6 +221,127 @@ class _HomeState extends State<Home> {
     );
   }
 
+  Widget searchBar() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: 60,
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
+      margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * 0.05,
+          right: MediaQuery.of(context).size.width * 0.05),
+      child: Row(
+        children: [
+          Expanded(
+            child: InpField(
+                type: "text",
+                text: "Recherche",
+                onChanged: (value) {
+                  // Appeler la méthode de mise à jour ici
+                  updateSearch();
+                },
+                textController: searchController),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          InkWell(
+            onTap: () {
+              bottomSheet();
+            },
+            child: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: green,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: Icon(Icons.filter_list, color: white0),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget filter(String name, Color color, int index) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          for (int i = 0; i < filterStates.length; i++) {
+            filterStates[i] = false;
+          }
+          filterStates[index] = true;
+          updateItemsOrder(name, name);
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(name),
+      ),
+    );
+  }
+
+  Future<void> bottomSheet() {
+    return showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20.0),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return Container(
+          height: 300,
+          width: MediaQuery.of(context).size.width * 0.9,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10, bottom: 10),
+                  width: 60,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[400],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              const HeaderDesc(title: "Filtre"),
+              Wrap(
+                alignment: WrapAlignment.start,
+                children: items.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  String item = entry.value;
+                  return filter(
+                    item,
+                    item == selectedCategory ? green : White1,
+                    index,
+                  );
+                }).toList(),
+              ),
+              ElevatedButton(
+                child: const Text('Close BottomSheet'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -250,6 +349,7 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             appbar(),
+            searchBar(),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -260,25 +360,12 @@ class _HomeState extends State<Home> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.98,
                       ),
-                      Text(
-                        "Salut, Soulaf",
-                        style: GoogleFonts.poppins(
-                            fontSize: 20, fontWeight: FontWeight.w500),
-                        textAlign: TextAlign.left,
-                      ),
-                      Text(
-                        "Que voulez vous commander aujourd'hui?",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: const Color(0xFF383838),
-                        ),
-                      ),
-                      const Gap(20),
-                      const HomeOrderPub(),
                       const Gap(10),
                       const HeaderDesc(title: "Categories"),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
+                        physics: const ClampingScrollPhysics()
+                            .applyTo(const BouncingScrollPhysics()),
                         child: Row(
                           children: items.asMap().entries.map((entry) {
                             int index = entry.key;
@@ -300,6 +387,8 @@ class _HomeState extends State<Home> {
                       const HeaderDesc(title: "Vos favoris"),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
+                        physics: const ClampingScrollPhysics()
+                            .applyTo(const BouncingScrollPhysics()),
                         child: Row(
                           children: [
                             for (var orderDesc
@@ -330,28 +419,6 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget filter(String name, Color color, int index) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          for (int i = 0; i < filterStates.length; i++) {
-            filterStates[i] = false;
-          }
-          filterStates[index] = true;
-          updateItemsOrder(name, name);
-        });
-      },
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Text(name),
       ),
     );
   }

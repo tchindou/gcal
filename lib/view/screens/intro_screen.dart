@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gcal/view/widgets/export-widget.dart';
+import 'package:gcal/view/widgets/export_widget.dart';
 
 class WalkthroughScreen extends StatefulWidget {
   const WalkthroughScreen({super.key});

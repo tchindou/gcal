@@ -3,7 +3,7 @@ import 'package:gcal/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:badges/badges.dart' as badges;
 
-import 'package:gcal/domain/export.domain.dart';
+import 'package:gcal/domain/export_domain.dart';
 
 class OrderDesc extends StatefulWidget {
   final Order order;
@@ -87,8 +87,7 @@ class _OrderDescState extends State<OrderDesc> {
                             OrderCart(
                                 id: cart.length, qte: 1, order: widget.order),
                           );
-                          print(
-                              "\n\n ${cart.length} - " + c.toString() + "\n\n");
+                          print("\n\n ${cart.length} - $c\n\n");
                         },
                         child: Container(
                           padding: const EdgeInsets.all(5),
