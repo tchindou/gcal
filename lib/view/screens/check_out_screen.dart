@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(home: CarouselDemo()));
+  runApp(const MaterialApp(home: CarouselDemo()));
 }
 
 class CarouselDemo extends StatefulWidget {
+  const CarouselDemo({super.key});
+
   @override
   _CarouselDemoState createState() => _CarouselDemoState();
 }
@@ -29,7 +31,7 @@ class _CarouselDemoState extends State<CarouselDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Carousel avec indicateurs')),
+      appBar: AppBar(title: const Text('Carousel avec indicateurs')),
       body: Stack(
         children: <Widget>[
           PageView(
@@ -60,8 +62,8 @@ class _CarouselDemoState extends State<CarouselDemo> {
 
   Widget buildIndicator(int index) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
-      margin: EdgeInsets.symmetric(horizontal: 8.0),
+      duration: const Duration(milliseconds: 300),
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
       height: 8.0,
       width: _currentPage == index ? 24.0 : 8.0,
       decoration: BoxDecoration(

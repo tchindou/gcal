@@ -25,7 +25,7 @@ class _CartState extends State<Cart> {
 
   Future<void> _initializeData() async {
     list = await CartManip.instance.getCart();
-    price = await CartManip.instance.getPrice();
+    price = CartManip.instance.getPrice();
     setState(
         () {}); // Rafraîchit l'interface graphique après avoir récupéré les données.
   }
@@ -86,7 +86,7 @@ class _CartState extends State<Cart> {
         return Container(
           height: 300,
           width: MediaQuery.of(context).size.width * 0.9,
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 8.0),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 8.0),
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10), topRight: Radius.circular(10)),
@@ -107,7 +107,7 @@ class _CartState extends State<Cart> {
                 ),
               ),
               const HeaderDesc(title: "Details de la commande"),
-              Gap(10),
+              const Gap(10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -217,7 +217,7 @@ class _CartState extends State<Cart> {
                                   Slidable(
                                     key: ValueKey(index),
                                     endActionPane: ActionPane(
-                                      motion: ScrollMotion(),
+                                      motion: const ScrollMotion(),
                                       children: [
                                         SlidableAction(
                                           onPressed: (_) {
@@ -226,10 +226,10 @@ class _CartState extends State<Cart> {
                                               list;
                                             });
                                           },
-                                          borderRadius: BorderRadius.horizontal(
+                                          borderRadius: const BorderRadius.horizontal(
                                             left: Radius.circular(20),
                                           ),
-                                          backgroundColor: Color(0xFFFE4A49),
+                                          backgroundColor: const Color(0xFFFE4A49),
                                           foregroundColor: Colors.white,
                                           icon: Icons.delete,
                                         ),

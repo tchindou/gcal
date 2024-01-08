@@ -9,3 +9,5 @@ export 'package:gcal/view/screens/search_screen.dart';
 export 'package:gcal/view/screens/profile_screen.dart';
 export 'package:gcal/view/screens/cart_screen.dart';
 export 'package:gcal/view/screens/app_screen.dart';
+export 'package:gcal/view/screens/splash_screen.dart';
+export 'package:gcal/view/screens/check_out_screen.dart';

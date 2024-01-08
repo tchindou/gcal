@@ -1,7 +1,23 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gcal/utils/routes.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+  WidgetsFlutterBinding.ensureInitialized();
+
+  String url = dotenv.env['SUPABASE_URL']!;
+  String key = dotenv.env['SUPABASE_KEY']!;
+
+  await Supabase.initialize(
+    url: url,
+    anonKey: key,
+  );
+  if (kDebugMode) {
+    print("supabase \n\t-url : $url\n\t-key : $key");
+  }
   runApp(const MyApp());
 }
 

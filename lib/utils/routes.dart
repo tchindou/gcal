@@ -6,6 +6,8 @@ class Routes {
     // Vous pouvez définir vos propres routes et logique ici
     switch (settings.name) {
       case '/':
+        return MaterialPageRoute(builder: (_) => const Splash());
+      case '/walk':
         return MaterialPageRoute(builder: (_) => const WalkthroughScreen());
       case '/landing': // J'ai changé la valeur pour éviter la duplication
         return MaterialPageRoute(builder: (_) => const Landing());

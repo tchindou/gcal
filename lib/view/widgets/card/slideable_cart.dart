@@ -89,8 +89,8 @@ class _SlideableCartState extends State<SlideableCart> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
                     'Le plat est constitué de tout ce qui ravira vos papilles gustative. Bon appetit !!',
                     maxLines: 2,
@@ -105,7 +105,7 @@ class _SlideableCartState extends State<SlideableCart> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        '${price} fcfa',
+                        '$price fcfa',
                         style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,

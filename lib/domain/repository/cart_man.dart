@@ -56,9 +56,9 @@ class CartManip implements CartUseCase {
   }
 
   double getPrice() {
-    orderCartList.forEach((element) {
+    for (var element in orderCartList) {
       price += double.parse(element.order.price) * element.qte;
-    });
+    }
     return price;
   }
 

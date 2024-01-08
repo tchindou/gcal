@@ -58,7 +58,8 @@ class Landing extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/login');
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/login', (route) => false);
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.5,
@@ -83,7 +84,8 @@ class Landing extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/signup');
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/signup', (route) => false);
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.5,

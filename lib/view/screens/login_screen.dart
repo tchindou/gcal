@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child:
-                        InpField(type: "nom", textController: textController),
+                        InpField(type: "tel", phoneController: phoneController),
                   ),
                   const Gap(20),
                   Container(
