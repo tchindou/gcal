@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gcal/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -87,7 +88,9 @@ class _OrderDescState extends State<OrderDesc> {
                             OrderCart(
                                 id: cart.length, qte: 1, order: widget.order),
                           );
-                          print("\n\n ${cart.length} - $c\n\n");
+                          if (kDebugMode) {
+                            print("\n\n ${cart.length} - $c\n\n");
+                          }
                         },
                         child: Container(
                           padding: const EdgeInsets.all(5),

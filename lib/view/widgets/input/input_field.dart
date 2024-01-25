@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gcal/view/widgets/input/text_field.dart';
 import 'package:gcal/view/widgets/input/email_field.dart';
 import 'package:gcal/view/widgets/input/password_field.dart';
-import 'package:gcal/view/widgets/input/telIndiceField.dart';
+import 'package:gcal/view/widgets/input/tel_indice_field.dart';
 import 'package:gcal/view/widgets/input/tel_field.dart';
 
 class InpField extends StatefulWidget {
@@ -28,10 +28,10 @@ class InpField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _InpFieldState createState() => _InpFieldState();
+  InpFieldState createState() => InpFieldState();
 }
 
-class _InpFieldState extends State<InpField> {
+class InpFieldState extends State<InpField> {
   bool isObscure = true;
 
   @override

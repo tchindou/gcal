@@ -1,12 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:gcal/domain/entities/order.dart';
+import 'package:gcal/data/export_data.dart';
 import 'package:gcal/domain/entities/order_cart.dart';
 import 'package:gcal/domain/repository/cart_man.dart';
 import 'package:gcal/utils/colors.dart';
-import 'package:gcal/view/widgets/export_widget.dart';
+import 'package:gcal/view/widgets/export_widget.dart'
+    show HomeOrderPub, HeaderDesc;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -30,86 +29,11 @@ class _HomeState extends State<Home> {
     return cart.length;
   }
 
-  final List<String> items = [
-    "Tous",
-    "Vegetables",
-    "Fruits",
-    "Boissons",
-    "Dessert",
-    "Epicerie",
-    "Cremerie"
-  ];
-
-  List<OrderDesc> getFilteredOrderDescList() {
-    List<String> categories = [
-      "Vegetables",
-      "Fruits",
-      "Boissons",
-      "Dessert",
-      "Epicerie",
-      "Cremerie"
-    ];
-
-    List<String> vegetableNames = [
-      "Tomatoes",
-      "Carrots",
-      "Spinach",
-      "Cucumber"
-    ];
-    List<String> fruitNames = ["Orange", "Apple", "Banana", "Grapes"];
-    List<String> drinkNames = ["Coca Cola", "Water", "Orange Juice", "Coffee"];
-    List<String> dessertNames = ["Ice Cream", "Cake", "Cookies", "Pudding"];
-    List<String> groceryNames = ["Rice", "Pasta", "Canned Goods", "Spices"];
-    List<String> dairyNames = ["Milk", "Cheese", "Yogurt", "Butter"];
-
-    List<List<String>> namesList = [
-      vegetableNames,
-      fruitNames,
-      drinkNames,
-      dessertNames,
-      groceryNames,
-      dairyNames,
-    ];
-
-    List<OrderDesc> orderDescList = [];
-
-    Random random = Random();
-
-    for (int i = 0; i < 25; i++) {
-      int categoryIndex = random.nextInt(categories.length);
-      int nameIndex = random.nextInt(namesList[categoryIndex].length);
-
-      String category = items[categoryIndex];
-      String name = namesList[categoryIndex][nameIndex];
-
-      orderDescList.add(
-        OrderDesc(
-          order: Order(
-              id: i,
-              name: name,
-              category: category,
-              price: "1000",
-              description: "description",
-              image:
-                  "https://web-assets.bcg.com/3c/3d/794ddde7481695d246407d66e179/food-for-thought-the-untapped-climate-opportunity-in-alternative-proteins-rectangle.jpg"),
-        ),
-      );
-    }
-
-    List<OrderDesc> list = orderDescList
-        .where((orderDesc) =>
-            selectedCategory == "Tous" ||
-            orderDesc.order.category == selectedCategory)
-        .toList();
-
-    return list;
-  }
-
   void updateItemsOrder(String clickedItem, String category) {
     setState(() {
       if (clickedItem != selectedFilter) {
         items.remove(clickedItem); // Retire l'élément de sa position actuelle
-        items.insert(0, clickedItem); // Ajoute l'élément en début de liste
+        items.insert(1, clickedItem); // Ajoute l'élément en début de liste
         selectedFilter = clickedItem;
         selectedCategory = clickedItem;
       }
@@ -302,8 +226,8 @@ class _HomeState extends State<Home> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            for (var orderDesc
-                                in getFilteredOrderDescList()) ...[
+                            for (var orderDesc in getFilteredOrderDescList(
+                                selected: selectedCategory)) ...[
                               orderDesc,
                               const SizedBox(width: 20),
                             ],
@@ -315,8 +239,8 @@ class _HomeState extends State<Home> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            for (var orderDesc
-                                in getFilteredOrderDescList()) ...[
+                            for (var orderDesc in getFilteredOrderDescList(
+                                selected: selectedCategory)) ...[
                               orderDesc,
                               const SizedBox(width: 20),
                             ],

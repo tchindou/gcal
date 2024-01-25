@@ -3,7 +3,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 import 'package:gcal/domain/export_domain.dart';
 import 'package:gcal/utils/colors.dart';
-import 'package:gcal/view/widgets/export_widget.dart';
+import 'package:gcal/view/widgets/export_widget.dart'
+    show HeaderDesc, SlideableCart;
 import 'package:google_fonts/google_fonts.dart';
 
 class Cart extends StatefulWidget {
@@ -149,7 +150,7 @@ class _CartState extends State<Cart> {
               ),
               ElevatedButton(
                 child: const Text('Payer'),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.pushNamed(context, '/check'),
               ),
             ],
           ),
@@ -226,10 +227,12 @@ class _CartState extends State<Cart> {
                                               list;
                                             });
                                           },
-                                          borderRadius: const BorderRadius.horizontal(
+                                          borderRadius:
+                                              const BorderRadius.horizontal(
                                             left: Radius.circular(20),
                                           ),
-                                          backgroundColor: const Color(0xFFFE4A49),
+                                          backgroundColor:
+                                              const Color(0xFFFE4A49),
                                           foregroundColor: Colors.white,
                                           icon: Icons.delete,
                                         ),

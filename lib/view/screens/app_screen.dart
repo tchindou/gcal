@@ -1,7 +1,6 @@
-// ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:gcal/view/export_view.dart';
-import 'package:gcal/view/widgets/export_widget.dart';
+import 'package:gcal/view/export_view.dart' show Home, Search, Profile;
+import 'package:gcal/view/widgets/export_widget.dart' show BtmNavBar;
 
 class AppScreen extends StatefulWidget {
   const AppScreen({super.key});

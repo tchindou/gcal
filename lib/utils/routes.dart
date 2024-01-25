@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:gcal/view/export_view.dart';
+import 'package:gcal/view/export_view.dart'
+    show
+        Splash,
+        Signup,
+        Login,
+        Home,
+        WalkthroughScreen,
+        Landing,
+        Search,
+        Cart,
+        CheckOut,
+        Profile,
+        AppScreen;
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -23,6 +35,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const Profile());
       case '/cart':
         return MaterialPageRoute(builder: (_) => const Cart());
+      case '/check':
+        return MaterialPageRoute(builder: (_) => const CheckOut());
       case '/app':
         return MaterialPageRoute(builder: (_) => const AppScreen());
       default:

@@ -16,10 +16,10 @@ class AppBarInp extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(screenHeight * 0.3);
 
   @override
-  _AppBarInpState createState() => _AppBarInpState();
+  AppBarInpState createState() => AppBarInpState();
 }
 
-class _AppBarInpState extends State<AppBarInp>
+class AppBarInpState extends State<AppBarInp>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 

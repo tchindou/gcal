@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:gcal/view/widgets/input/input_field.dart';
+import 'package:gcal/view/widgets/input/input_field.dart' show InpField;
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -156,6 +156,7 @@ class _SignupState extends State<Signup> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               _buildInputField('nom'),
               const Gap(20),
@@ -163,35 +164,39 @@ class _SignupState extends State<Signup> {
               const Gap(20),
               _buildInputField('nom'),
               const Gap(30),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: InkWell(
-                  onTap: () {
-                    /*if (formKey.currentState!.validate()) {
+              Flexible(
+                flex: 1,
+                fit: FlexFit.loose,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: InkWell(
+                    onTap: () {
+                      /*if (formKey.currentState!.validate()) {
                     // Form is valid, proceed with your logic
                     // e.g., calling the sign-up function
                   }*/
-                    _controller.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeIn,
-                    );
-                    setState(() {
-                      _buttonPressed[0] = 'checked';
-                    });
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.green),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Sign up',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 20.0,
+                      _controller.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeIn,
+                      );
+                      setState(() {
+                        _buttonPressed[0] = 'checked';
+                      });
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.green),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Suivant',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20.0,
+                          ),
                         ),
                       ),
                     ),
@@ -214,6 +219,7 @@ class _SignupState extends State<Signup> {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 height: 60,
@@ -238,7 +244,12 @@ class _SignupState extends State<Signup> {
                   textController: confController,
                 ),
               ),
-              _buildSignupButton(),
+              const Gap(50),
+              Flexible(
+                flex: 1,
+                fit: FlexFit.loose,
+                child: _buildSignupButton(),
+              ),
               const Gap(50),
             ],
           ),

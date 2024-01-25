@@ -1,5 +1,5 @@
 import 'package:gcal/domain/entities/order_cart.dart';
-import 'package:gcal/domain/usecase/order_cart-uc.dart';
+import 'package:gcal/domain/usecase/order_cart_uc.dart';
 
 class CartManip implements CartUseCase {
   List<OrderCart> orderCartList = [];
@@ -60,11 +60,5 @@ class CartManip implements CartUseCase {
       price += double.parse(element.order.price) * element.qte;
     }
     return price;
-  }
-
-  @override
-  String toString() {
-    // TODO: implement toString
-    return super.toString();
   }
 }

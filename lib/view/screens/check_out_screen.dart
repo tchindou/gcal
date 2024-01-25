@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MaterialApp(home: CarouselDemo()));
-}
-
-class CarouselDemo extends StatefulWidget {
-  const CarouselDemo({super.key});
+class CheckOut extends StatefulWidget {
+  const CheckOut({super.key});
 
   @override
-  _CarouselDemoState createState() => _CarouselDemoState();
+  CheckOutState createState() => CheckOutState();
 }
 
-class _CarouselDemoState extends State<CarouselDemo> {
+class CheckOutState extends State<CheckOut> {
   int _currentPage = 0;
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -31,31 +27,43 @@ class _CarouselDemoState extends State<CarouselDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Carousel avec indicateurs')),
-      body: Stack(
-        children: <Widget>[
-          PageView(
-            controller: _pageController,
-            children: <Widget>[
-              Container(color: Colors.red),
-              Container(color: Colors.green),
-              Container(color: Colors.blue),
-            ],
-          ),
-          Positioned(
-            bottom: 10.0,
-            left: 0.0,
-            right: 0.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            height: 150,
+            width: MediaQuery.of(context).size.width * 0.9,
+            margin: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05),
+            child: Stack(
               children: <Widget>[
-                buildIndicator(0),
-                buildIndicator(1),
-                buildIndicator(2),
+                PageView(
+                  controller: _pageController,
+                  children: <Widget>[
+                    Container(
+                        height: 150,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        color: Colors.red),
+                    Container(color: Colors.green),
+                    Container(color: Colors.blue),
+                  ],
+                ),
+                Positioned(
+                  bottom: 10.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      buildIndicator(0),
+                      buildIndicator(1),
+                      buildIndicator(2),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

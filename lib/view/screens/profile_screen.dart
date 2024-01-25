@@ -123,14 +123,14 @@ class _ProfileState extends State<Profile> {
 // Données à afficher.
   final List<Map<String, dynamic>> data = [
     {
-      'title': 'Chapitre A',
+      'title': 'Ensemble A',
       'children': [
         {'title': 'Section A1'},
         {'title': 'Section A2'},
       ],
     },
     {
-      'title': 'Chapitre B',
+      'title': 'Ensemble B',
       'children': [
         {'title': 'Section B0'},
         {'title': 'Section B1'},

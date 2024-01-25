@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gcal/utils/colors.dart';
-import 'package:gcal/view/widgets/input/input_export.dart';
+import 'package:gcal/view/widgets/input/input_export.dart'
+    show InpField, InpOther;
 
 class Login extends StatefulWidget {
   const Login({super.key});

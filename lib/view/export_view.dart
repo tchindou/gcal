@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 export 'package:gcal/view/screens/intro_screen.dart';
 export 'package:gcal/view/screens/landing_screen.dart';
 export 'package:gcal/view/screens/login_screen.dart';
