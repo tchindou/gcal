@@ -3,4 +3,10 @@
 **`GCAL`** is a healthy food app designed with passion and dedication (although incomplete). You can find all the project specifications  [``here``](https://www.behance.net/gallery/184720067/Healthy-Food-App-uxui-Case-Study?tracking_source=for_you_logged_in_feed_recommended) </span>
 I hope your visit will be rewarding and informative. Feel free to explore the code and give me feedback on my linkedin post [``here``]()
 
+<details>
+<summary><h2>📷 Screenshots</h2></summary>
+
+<img src="/screenshots/splash.jpg" alt="splash screen"> <img src="/screenshots/intro.jpg" alt="intro screen"> <img src="/screenshots/landing.jpg" alt="landing screen"> <img src="/screenshots/login.jpg" alt="login screen"> <img src="/screenshots/signup.jpg" alt="signup screen"> <img src="/screenshots/home.jpg" alt="home screen"> <img src="/screenshots/search.jpg" alt="search screen"> <img src="/screenshots/profile.jpg" alt="profile screen"> <img src="/screenshots/cart.jpg" alt="cart screen"> <img src="/screenshots/cart_del.jpg" alt="cart del screen">
+</details>
+
 <img src="https://komarev.com/ghpvc/?username=tchindou" alt="tchindou"> <a href="https://github.com/search?q=user%3Atchindou+language%3Adart"><img alt="Dart" src="https://img.shields.io/badge/dart-%230175C2.svg?logo=dart&logoColor=white"></a>
