@@ -335,10 +335,10 @@ class _SignupState extends State<Signup> {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeIn,
         );*/
-        Navigator.pushNamed(context, "/home");
         setState(() {
           _buttonPressed[1] = 'checked';
         });
+        Navigator.pushNamedAndRemoveUntil(context, "/app", (route) => false);
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.5,
