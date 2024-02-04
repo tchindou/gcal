@@ -2,6 +2,9 @@
 
 **`GCAL`** is a healthy food app designed with passion and dedication (although incomplete). You can find all the project specifications  [``here``](https://www.behance.net/gallery/184720067/Healthy-Food-App-uxui-Case-Study?tracking_source=for_you_logged_in_feed_recommended) </span>
 I hope your visit will be rewarding and informative. Feel free to explore the code and give me feedback on my linkedin post [``here``](https://www.linkedin.com/posts/ptchindou_6-mois-cest-le-temps-qui-sest-%C3%A9coul%C3%A9-activity-7156624351377653760-kjKF?utm_source=share&utm_medium=member_desktop)
+.
+
+Access and download the APK [`here](./assets/apk/)
 
 <details>
 <summary><h2>📷 Screenshots</h2></summary>
